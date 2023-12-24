@@ -1,4 +1,4 @@
- ** Download de videos e audios do YouTube**
+ **Download de videos e audios do YouTube**
 
 **Este script Python permite baixar vídeos e áudios do YouTube de forma simples e prática.**
 
