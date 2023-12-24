@@ -1,4 +1,4 @@
- **# Download de videos e audios do YouTube**
+ ** Download de videos e audios do YouTube**
 
 **Este script Python permite baixar vídeos e áudios do YouTube de forma simples e prática.**
 
@@ -19,6 +19,8 @@
 1. Clone o repositório.
 2. Execute o script com `Video_Downloader.py`.
 3. Siga as instruções no terminal para escolher o tipo de download desejado e informar a URL do vídeo ou da playlist.
+   ![image](https://github.com/GuilhermeTart/Video-Downloader/assets/136984328/1b5a13b3-223c-47ee-839e-7e24506f225c)
+
 
 **Observações:**
 
