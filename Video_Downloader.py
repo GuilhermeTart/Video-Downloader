@@ -89,17 +89,17 @@ main()
    
    
    
-interation = input(colors.green +'Deseja baixar [V]ideo  [A]udio  ou [Ap]Audio_playlist? :  '+ colors.reset)
+interation = input(colors.green +'Deseja baixar [V]ideo  [A]udio  ou [Ap]Audio_playlist? :  '+ colors.reset).lower()
 
-if interation.lower() == 'v':
+if interation == 'v':
     movie_url = input(colors.green +'Informe o link do vídeo ou playlist: '+ colors.reset)
     output = download_movie(movie_url, './Videos_Download')
 
-elif interation.lower() == 'a':         
+elif interation == 'a':         
     audio_url = input(colors.green +'Informe o link do vídeo que você deseja obter o audio: '+ colors.reset)
     output = download_audio(audio_url, './musica_Download')
    
-elif interation.lower() == 'ap':         
+elif interation == 'ap':         
     playlist_url = input(colors.green +'Informe o link da playlist que você deseja obter o áudio: '+ colors.reset)
     output =  playlist_audio(playlist_url, './musicas_Download')
 
