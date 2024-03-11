@@ -1,12 +1,12 @@
- **Download de videos e áudios do YouTube**
+ **Download de videos e áudios do YouTube,Likedin e Facebook**
 
-**Este script Python permite baixar vídeos e áudios do YouTube de forma simples e prática.**
+**Este script Python permite baixar vídeos, áudios e playlist do Youtube de forma simples e prática.**
 
 **Funcionalidades:**
 
 - Baixar vídeos individuais em formato MP4.
 - Extrair áudio de vídeos individuais em formato MP3.
-- Baixar áudio  de playlists   completas em formato MP3.
+- Baixar áudio  de playlists completas do Youtube em formato MP3.
 
 **Requisitos:**
 
