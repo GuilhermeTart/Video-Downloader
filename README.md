@@ -1,4 +1,4 @@
- *Download de videos e áudios do YouTube,Likedin,Instagram e Facebook*
+ ***Download de videos e áudios do YouTube,Likedin,Instagram e Facebook***
 
 **Este script Python permite baixar vídeos, áudios e playlist do Youtube de forma simples e prática.**
 
