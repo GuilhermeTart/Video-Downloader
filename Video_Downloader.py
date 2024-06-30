@@ -10,7 +10,7 @@ while True:
         
     def download_movie(movie_url, path):
         path = 'Videos_Download' 
-        command = ["yt-dlp", "-f", "mp4", movie_url, "-o", f'{path}/%(title)s.%(ext)s']
+        command = ["yt-dlp", "-f", "mp4", movie_url, "-o", f'{path}/%(title)19.s.%(ext)s']
         output = subprocess.check_output(command) 
         try:
             if not os.path.exists(path):
@@ -32,7 +32,7 @@ while True:
 
     def download_audio(audio_url,path_audio ):  
         path_audio = 'Audio_Download' 
-        command_audio = ["yt-dlp", "-x", "--audio-format", "mp3", audio_url, "-o", f'{path_audio}/%(title)s.%(ext)s']
+        command_audio = ["yt-dlp", "-x", "--audio-format", "mp3", audio_url, "-o", f'{path_audio}/%(title)19.s.%(ext)s']
         output_audio = subprocess.check_output(command_audio) 
         
         try:
@@ -54,8 +54,7 @@ while True:
     def playlist_audio(playlist_url,path_audio_playlist ):
         path_audio_playlist = 'Audios_Download' 
         
-        command_playlist = f"yt-dlp --extract-audio --audio-format mp3\
-            '{playlist_url}' -o '{path_audio_playlist}/%(title)s'"
+        command_playlist = f"yt-dlp --extract-audio --audio-format mp3 --yes-playlist '{playlist_url}' -o '{path_audio_playlist}/%(title)s.%(ext)s'"
         output_audio_playlist = subprocess.check_output(command_playlist, shell=True)
         
         try:
