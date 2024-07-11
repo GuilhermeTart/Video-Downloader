@@ -19,7 +19,6 @@
 1. Clone o repositório.
 2. Execute o script com `Video_Downloader.py`.
 3. Siga as instruções no terminal para escolher o tipo de download desejado e informar a URL do vídeo ou da playlist.
-4. Para executar a opção de baixar áudios de playlist no windows (AP) faça essa alteração no código ---> command_playlist = f'yt-dlp --extract-audio --audio-format mp3 "{playlist_url}" -o {path_audio_playlist}/%(title)s'
    ![image](https://github.com/GuilhermeTart/Video-Downloader/assets/136984328/1b5a13b3-223c-47ee-839e-7e24506f225c)
 
 
