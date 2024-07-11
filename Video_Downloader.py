@@ -10,7 +10,7 @@ while True:
         
     def download_movie(movie_url, path):
         path = 'Videos_Download' 
-        command = ["yt-dlp", "-f", "mp4", movie_url, "-o", f'{path}/%(title)19.s.%(ext)s']
+        command = ['yt-dlp', '-f', 'mp4', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
         output = subprocess.check_output(command) 
         try:
             if not os.path.exists(path):
@@ -32,7 +32,7 @@ while True:
 
     def download_audio(audio_url,path_audio ):  
         path_audio = 'Audio_Download' 
-        command_audio = ["yt-dlp", "-x", "--audio-format", "mp3", audio_url, "-o", f'{path_audio}/%(title)19.s.%(ext)s']
+        command_audio = ["yt-dlp","-x","--audio-format", "mp3",audio_url, "-o", f"{path_audio}/%(title)s.%(ext)s" ]
         output_audio = subprocess.check_output(command_audio) 
         
         try:
@@ -93,6 +93,8 @@ while True:
             case 'v':
                 movie_url = input(colors.green +'Informe o link do vídeo ou playlist: '+ colors.reset)
                 output = download_movie(movie_url, './Videos_Download')
+        
+            
 
             case 'a':         
                 audio_url = input(colors.green +'Informe o link do vídeo que você deseja obter o audio: '+ colors.reset)
