@@ -9,9 +9,6 @@ from sys import exit
 while True:
         
     def download_movie(movie_url, path):
-        path = 'Videos_Download' 
-        command = ['yt-dlp', '-f', 'mp4', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
-        output = subprocess.check_output(command) 
         try:
             if not os.path.exists(path):
                 os.mkdir(path)
@@ -24,6 +21,11 @@ while True:
             raise
         except Exception:
             raise
+        
+        path = 'Videos_Download' 
+        command = ['yt-dlp', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
+        output = subprocess.check_output(command) 
+        
         # 
         print(colors.blue + output.decode('latin-1') + colors.reset)
     
@@ -31,10 +33,6 @@ while True:
                 
 
     def download_audio(audio_url,path_audio ):  
-        path_audio = 'Audio_Download' 
-        command_audio = ["yt-dlp","-x","--audio-format", "mp3",audio_url, "-o", f"{path_audio}/%(title)s.%(ext)s" ]
-        output_audio = subprocess.check_output(command_audio) 
-        
         try:
             if not os.path.exists(path_audio):
                 os.mkdir(path_audio)
@@ -47,16 +45,17 @@ while True:
             raise
         except Exception:
             raise
+        
+        path_audio = 'Audio_Download' 
+        command_audio = ["yt-dlp","-x","--audio-format", "mp3",audio_url, "-o", f"{path_audio}/%(title)s.%(ext)s" ]
+        output_audio = subprocess.check_output(command_audio) 
+        
+        
         # 
         print(colors.blue + output_audio.decode('latin-1') + colors.reset)
 
             
     def playlist_audio(playlist_url,path_audio_playlist ):
-        path_audio_playlist = 'Audios_Download' 
-        
-        command_playlist = f"yt-dlp --extract-audio --audio-format mp3 --yes-playlist '{playlist_url}' -o '{path_audio_playlist}/%(title)s.%(ext)s'"
-        output_audio_playlist = subprocess.check_output(command_playlist, shell=True)
-        
         try:
             if not os.path.exists(path_audio_playlist):
                 os.mkdir(path_audio_playlist)
@@ -69,9 +68,24 @@ while True:
             raise
         except Exception:
             raise
-        # 
-        print(colors.blue + output_audio_playlist.decode('latin-1') + colors.reset)
-
+        
+        path_audio_playlist = 'Audios_Download' 
+        command_playlist = [
+        "yt-dlp",
+        "--extract-audio",
+        "--audio-format", "mp3",
+        "--yes-playlist",
+        "--ignore-errors",
+        playlist_url,
+        "-o", f"{path_audio_playlist}/%(title)s.%(ext)s"
+    ]
+        try:
+            result = subprocess.run(command_playlist, capture_output=True, text=True)
+            print(result.stdout)
+        except subprocess.CalledProcessError as e:
+            print(f"Erro ao executar o comando: {e}")
+            print(e.stderr)
+            raise
            
   
  
@@ -91,18 +105,16 @@ while True:
 
         match interation:
             case 'v':
-                movie_url = input(colors.green +'Informe o link do vídeo ou playlist: '+ colors.reset)
+                movie_url = input(colors.green +'Informe o link do vídeo: '+ colors.reset)
                 output = download_movie(movie_url, './Videos_Download')
         
-            
-
             case 'a':         
                 audio_url = input(colors.green +'Informe o link do vídeo que você deseja obter o audio: '+ colors.reset)
-                output = download_audio(audio_url, './musica_Download')
+                output = download_audio(audio_url, './Audio_Download')
     
             case 'ap':         
                 playlist_url = input(colors.green +'Informe o link da playlist que você deseja obter o áudio: '+ colors.reset)
-                output =  playlist_audio(playlist_url, './musicas_Download')
+                output =  playlist_audio(playlist_url, './Audios_Download')
 
             case _:
                 print(colors.red +'parâmetro inválido'+ colors.reset)
@@ -127,18 +139,17 @@ while True:
                                                                                             
 
 
-
-
             
     {colors.reset}""")
 
-    if __name__ == '__main__':
-        main()   
+   
     
     Exit = input(colors.green +'Deseja sair? (y/n) '+ colors.reset).lower()
     if Exit == 'y':
         break   
     else:
         os.system('cls' if os.name == 'nt' else 'clear')
-
+        
+if __name__ == '__main__':
+    main()   
             
