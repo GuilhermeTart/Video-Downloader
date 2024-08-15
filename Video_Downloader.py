@@ -23,12 +23,18 @@ while True:
             raise
         
         path = 'Videos_Download' 
-        command = ['yt-dlp', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
-        output = subprocess.check_output(command) 
-        
-        # 
-        print(colors.blue + output.decode('latin-1') + colors.reset)
-    
+        command = ['yt-dlp','--ignore-errors', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
+        try:
+            output = subprocess.check_output(command) 
+            # 
+            print(colors.blue + output.decode('latin-1') + colors.reset)
+        except subprocess.CalledProcessError as e:
+            error_message = e.output.decode('latin-1')
+            if 'Private video' in error_message:
+                print(colors.red +"Erro: Mídia privada. Não foi possível baixar o vídeo."+colors.reset)
+            else:
+                print(f"Erro ao baixar o vídeo: {error_message}")    
+
 
                 
 
