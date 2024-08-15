@@ -142,14 +142,13 @@ while True:
             
     {colors.reset}""")
 
-   
+    if __name__ == '__main__':
+        main()   
     
     Exit = input(colors.green +'Deseja sair? (y/n) '+ colors.reset).lower()
     if Exit == 'y':
         break   
     else:
         os.system('cls' if os.name == 'nt' else 'clear')
-        
-if __name__ == '__main__':
-    main()   
+
             
