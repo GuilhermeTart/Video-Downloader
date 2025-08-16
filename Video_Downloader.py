@@ -21,13 +21,17 @@ while True:
             raise
         except Exception:
             raise
-        
+
+        #    
         path = 'Videos_Download' 
-        command = ['yt-dlp','--ignore-errors', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
+        command = ['yt-dlp','--ignore-errors','--progress','-f','mp4', movie_url, '-o', f'{path}/%(title)s.%(ext)s']
+        #
         try:
-            output = subprocess.check_output(command) 
-            # 
-            print(colors.blue + output.decode('latin-1') + colors.reset)
+            with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, universal_newlines=True) as proc:
+                for line in proc.stdout:
+                    if "%" in line:
+                        print(colors.blue + line.strip() + colors.reset)
+            proc.wait()
         except subprocess.CalledProcessError as e:
             error_message = e.output.decode('latin-1')
             if 'Private video' in error_message:
@@ -51,60 +55,64 @@ while True:
             raise
         except Exception:
             raise
-        
+    
+       
+        #        
         path_audio = 'Audio_Download' 
-        command_audio = ["yt-dlp","-x","--audio-format", "mp3",audio_url, "-o", f"{path_audio}/%(title)s.%(ext)s" ]
-        output_audio = subprocess.check_output(command_audio) 
-        
-        
+        command_audio = ["yt-dlp","-x","--progress","--audio-format", "mp3",audio_url, "-o", f"{path_audio}/%(title)s.%(ext)s" ]
         # 
-        print(colors.blue + output_audio.decode('latin-1') + colors.reset)
+        try:
+            with subprocess.Popen(command_audio, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, universal_newlines=True) as proc:
+                for line in proc.stdout:
+                    if "%" in line:
+                        print(colors.blue + line.strip() + colors.reset)
+                    else:
+                        print(line.strip())
+            proc.wait()
+        except subprocess.CalledProcessError as e:
+            print(colors.red + "Erro ao baixar o áudio." + colors.reset)
 
             
-    def playlist_audio(playlist_url,path_audio_playlist ):
+    def playlist_audio(playlist_url, path_audio_playlist):
         try:
             if not os.path.exists(path_audio_playlist):
                 os.mkdir(path_audio_playlist)
                 print('Pasta Criada!')
             else:
-                print(colors.red +'Pasta já existe'+ colors.reset)
+                print(colors.red + 'Pasta já existe' + colors.reset)
             #
         except OSError:
             print("Não foi possível encontrar o caminho! Verifique!!")
             raise
         except Exception:
             raise
-        
-        path_audio_playlist = 'Audios_Download' 
+       
+        #
+        path_audio_playlist = 'Audios_Download'
         command_playlist = [
-        "yt-dlp",
-        "--extract-audio",
-        "--audio-format", "mp3",
-        "--yes-playlist",
-        "--ignore-errors",
-        playlist_url,
-        "-o", f"{path_audio_playlist}/%(title)s.%(ext)s"
-    ]
+            "yt-dlp",
+            "--extract-audio",
+            "--audio-format", "mp3",
+            "--yes-playlist",
+            "--ignore-errors",
+            "--progress",
+            playlist_url,
+            "-o", f"{path_audio_playlist}/%(title)s.%(ext)s"
+        ]
         try:
-            result = subprocess.run(command_playlist, capture_output=True, text=True)
-            print(result.stdout)
+            with subprocess.Popen(command_playlist, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, universal_newlines=True) as proc:
+                for line in proc.stdout:
+                    if "%" in line:
+                        print(colors.blue + line.strip() + colors.reset)
+                    else:
+                        print(line.strip())
+            proc.wait()
         except subprocess.CalledProcessError as e:
             print(f"Erro ao executar o comando: {e}")
             print(e.stderr)
             raise
-           
-  
  
-   
-   
-   
-   
-
-
-
-
-   
-   
+    #
     def main():
     
         interation = input(colors.green +'Deseja baixar [V]ideo  [A]udio  ou [Ap]Audio_playlist? :  '+ colors.reset).lower()
